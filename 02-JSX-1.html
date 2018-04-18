@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    <abc>asdasdas<</abc>
+    <div id="root"></div>
+
+   
+    <script  type="text/babel">
+        
+        let formatUser = (user)=> `hello,${user.firstName} . ${user.lastName} `;
+        
+        let user = {
+            firstName:'隔壁',
+            lastName:'老王'
+        }
+        
+        const element  = (
+            <div>
+                <abc>{formatUser(user)} </abc>
+                <h1>{formatUser(user)}</h1>
+                <h1>{1+2}</h1>
+            </div>
+        );
+
+        ReactDOM.render(
+            element,
+            document.getElementById("root")
+        );
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+    
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            msg='hehe'
+            // constructor(){
+            //     // 是一个函数，调用父类的构造函数
+            //     // 详见10-extends.html
+            //     super();
+            //     // console.log('cons.....')
+            //     // console.log(this,this.msg);
+            //     this.func();
+            // }
+            handler(){
+                console.log(this)
+            }
+            handlerWithThis(){
+                console.log(this.msg)
+            }
+            render(){
+                // 事件的绑定
+                // 事件名 使用驼峰命名法： 首字母小写，从第二个单词开始每个单词首字母大写
+                // 值是 class中的一个方法
+                return (
+                    <p>
+                        {/*使用该方式绑定的事件处理函数中，this 是undefined*/}
+                        <button onClick={this.handler}>我是一个按钮</button>
+                        {/*为JSX事件绑定this对象,this.事件名称.bind(this)*/}
+                        <button onClick={this.handlerWithThis.bind(this)}>我是一个有this的按钮</button>
+                    </p>
+                )
+            }
+        }
+        
+
+        const element = (
+            <div>
+                <ComA user={{name:'z3',age:22}} abc='123' hello-world="haha"></ComA>
+            </div>
+        )
+
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>

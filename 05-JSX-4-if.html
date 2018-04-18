@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <style>
+        .danger{
+            color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+    
+    <pre>
+        用户输入一个学生成绩，prompt，
+        [0,60)分 页面显示不及格 危险色 danger
+        [60-80)显示及格   警告色 warn
+        [80-90)显示良好   正常色 primary
+        [90-100]显示优秀  成功色 success
+    </pre>
+
+    <div id="r"></div>
+
+    <script type="text/babel">
+        
+        let calcScore = () => {
+            // let score = prompt('') * 1;
+            let score = Number.parseInt(prompt("请输入学生成绩",0) / 10);
+            let result = "不及格";
+            switch(score){
+                case 6:
+                case 7:
+                    result = "及格"
+                    break;
+                case 8:
+                    result = "良好"
+                    break;
+                case 9:
+                case 10:
+                    result = "优秀"
+                    break;
+            }
+            // return <span style={{color:'red'}}> {result} </span>;
+          
+            // let style = {
+            //     color:'red',
+            //     fontSize:'60px'
+            // }
+            // return <span style={style}> {result} </span>;
+                let hl = 'aaa';
+             return <span itany='abc' helloworld={hl} className='danger'> {result} </span>;
+        }
+
+        let element = (
+           <p> 
+            //我是注释
+            /*我是注释*/
+            /**我是注释*/
+            {
+            //我是注释
+            /*我是注释*/
+            /**我是注释*/
+            }
+            {calcScore()} 
+           </p>
+        )
+
+        ReactDOM.render(
+            element,
+            document.querySelector("#r")
+        );
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+    
+
+    <script type="text/babel">
+        // 定义组件
+        // 组件名首字母大写
+        // 组件函数接收一个参数，参数名一般情况下为props, 是所有组件参数构成的对象
+        function ComA(props)
+        {
+            let user = props.user;
+            console.log(props['hello-world']);
+            return (
+                <div>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>姓名</td>
+                                <td>年龄</td>
+                            </tr>
+                            <tr>
+                                <td>{user.name}</td>
+                                <td>{user.age}</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                </div>
+            )
+        }
+
+
+        const element = (
+            <div>
+                <ComA user={{name:'z3',age:22}} abc='123' hello-world="haha"></ComA>
+                <ComA user={{name:'z4',age:223}} abc='234'></ComA>
+                <ComA user={{name:'z5',age:224}} abc='2345'></ComA>
+            </div>
+        )
+
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>

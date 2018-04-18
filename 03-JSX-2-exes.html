@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    <pre>
+            练习： 随机产生两个[0,10]的整数，
+            在页面中显示 第一个数为：4 ， 第二个数为：7 ， 第一个数大于第二个数： false，
+    </pre>
+    <div id="root"></div>
+
+   
+    <script  type="text/babel">
+        
+        const nums = {
+            m : Number.parseInt(Math.random()*11),
+            n : Number.parseInt(Math.random()*11)
+        }
+        // console.log(nums.m)
+
+        const element  = (
+            <div>
+                <h1>第1个数m为:{ nums.m }</h1>
+                <h1>第2个数n为:{ nums.n }</h1>
+                <h1>m > n:{ nums.m > nums.n ? "true" : "false"}</h1>                
+                <h1>m > n:{ "" + (nums.m > nums.n) }</h1>                
+                <h1>m > n:{ String(nums.m > nums.n) }</h1>                
+                <h1>m > n:{ (nums.m > nums.n).toString() }</h1>                
+            </div>
+        );
+
+        ReactDOM.render(
+            element,
+            document.getElementById("root")
+        );
+    </script>
+
+</body>
+</html>

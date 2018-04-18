@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+    <style>
+        .danger{
+            color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="r"></div>
+
+    <script type="text/babel">
+        // setInterval(()=> {
+        //     curTime = new Date().toLocaleString()
+        //     console.log(curTime)
+        // },1000);
+
+        let load = ()=>{
+            let curTime = new Date().toLocaleString();
+        
+            let element = (
+                <div>
+                    <p>{curTime}</p>
+                    <img src={"https://www.baidu.com/img/bd_logo1.png?where=super&d="+new Date()} />
+                    <p>
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                        aksdjkladjkladjklasdjkladjkalsdjkl
+                    </p>
+                </div>
+            )
+
+            ReactDOM.render(
+                element,
+                document.getElementById("r")
+            );
+        }
+        setInterval(load,1000);
+    </script>
+</body>
+</html>

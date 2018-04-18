@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    <pre>
+            练习： 实现将用户数组变成ul->li 展示在页面上，
+            li中的内容是 姓名-年龄
+    </pre>
+    <div id="root">
+
+    </div>
+
+   
+    <script  type="text/babel">
+
+        const userList = [
+            {name:'张三',age:22},
+            {name:'张思',age:33},
+            {name:'彰武',age:44},
+            {name:'张柳',age:55},
+        ];
+        
+        let fun = () => {
+            // let arr = [];
+            // for(let i = 0 ; i < userList.length ; i++)
+            // {
+            //     arr.push(<li>{userList[i].name}-{userList[i].age}</li>);
+            // }
+            
+            // map 方法是js数组中的一个方法，
+            // 参数是一个函数callback，
+            //      作用： 会遍历原数组中的所有元素，对每一个元素调用callback方法，
+            //              callback方法 第一个参数是每次遍历的数组元素
+            //                          第二个参数是数组元素的  索引（下标 index）
+            //              callback方法 具有返回值，map 方法会返回 每次调用callback方法返回的值 组成的数组
+            /*
+                        例如：
+                            let arr = [1,2,3]
+                            let newArr = [];
+                            for(let item of arr)
+                            {
+                                // 次方运算 item的2次方
+                                newArr.push(item ** 2);
+                            }
+                            console.log(newArr);
+                        等效于
+                            let arr = [1,2,3];
+                            let newArr = arr.map((item) =>  item ** 2);
+                
+            */
+            let arr = userList.map((user,i) => <li key={i}>{user.name}-{user.age}-{i}</li>);
+            return arr;
+        }
+
+        const element  = (
+            <ul>
+               {fun()}
+            </ul>
+        );
+
+        ReactDOM.render(
+            element,
+            document.getElementById("root")
+        );
+    </script>
+
+</body>
+</html>
