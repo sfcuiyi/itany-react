@@ -3,5 +3,4 @@ class ComB extends React.Component{
         return <p>Outer Component ComB--props:{this.props.data}</p>
     }
 }
-
 export { ComB };

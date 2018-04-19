@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            
+            constructor(props){
+                super(props);
+                // 初始化state
+                // 该属性和普通属性的使用方式是一致的
+                this.state = {
+                    info : 'this is info'
+                }
+            }
+            changeValue(e){
+                this.setState({
+                    info:'hahahah'
+                });
+            }
+            render(){
+                return (
+                    <p>
+                        <span>{this.state.info}</span>
+                        <br/>
+                        <button onClick={this.changeValue.bind(this)}>changeValue</button>
+                        {/*
+                            <button onClick={this.setState({info:'hehehe'})}>changeValue22</button>
+                        */}
+                    </p>
+                )
+            }
+        }
+        const element = (
+            <div>
+                <ComA></ComA>
+            </div>
+        )
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>

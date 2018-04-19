@@ -609,6 +609,8 @@ sudo npm install react-dom
 
 ## 六、React 中事件的绑定
 
+### 6-1 事件绑定方式
+
 React 中事件的绑定方式类似于DOM，但是事件名需要使用 驼峰命名法
 
 ```jsx
@@ -720,4 +722,214 @@ abc
 abcd
 abcdef
 ```
+
+### 6-2 参数的传递
+
+```jsx
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            handlerWithThis(msg,user,arr,e){
+                console.log(msg,user,arr);
+                // event
+                console.log(e);
+                console.log(e.target);
+            }
+            render(){
+                return (
+                    <p>
+                        {
+                            /*
+                                在JSX中， 事件绑定后（bind中），存在以下几个参数
+                                    this --> 为了在事件处理函数中能够获取到 this对象
+                                    0或多个自定义参数，作为事件处理函数的参数
+
+                                在 事件处理函数handlerWithThis中，存在以下几个参数
+                                    不需要显式的声明一个参数来接收this，可以直接在函数体中使用this
+                                    从第一个参数开始后的参数为上面传递的自定义参数
+                                    最后一个参数为事件对象
+                            */
+                        }
+                        <button onClick={this.handlerWithThis.bind(this,"消息",{name:'aaa',age:22},[23,46,8,34])}>我是一个有this的按钮</button>
+                    </p>
+                )
+            }
+        }
+        
+
+        const element = (
+            <div>
+                <ComA user={{name:'z3',age:22}} abc='123' hello-world="haha"></ComA>
+            </div>
+        )
+
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>
+```
+
+## 七、数据状态 state
+
+**React 中的组件一旦被创建，内容无法修改。—> 无法实现数据的动态展示**
+
+
+
+```jsx
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            msg = "asdadasdasd";
+            changeValue(e){
+                // console.log(e.target.value)
+                console.log(this.msg);
+                this.msg = e.target.value;
+                console.log(this.msg);
+            }
+            render(){
+                return (
+                    <p>
+                        <input  value={this.msg} onChange={this.changeValue.bind(this)} />
+                        <br/>
+                        <span>{this.msg}</span>
+                        <br/>
+                        <button onClick={this.changeValue.bind(this,{target:{value:'aaaa'}})}>changeValue</button>
+                    </p>
+                )
+            }
+        }
+        
+
+        const element = (
+            <div>
+                <ComA></ComA>
+            </div>
+        )
+
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>
+```
+
+**在组件中 借助React 中定义的state 状态完成 数据的动态渲染**
+
+
+
+**React 的实现方式更加类似于  微信小程序**
+
+
+
+**state 属性只能（必须）在构造函数中初始化，类似于小程序中的data**
+
+
+
+```jsx
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
+
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            
+            constructor(props){
+                super(props);
+                // 初始化state
+                // 该属性和普通属性的使用方式是一致的
+                this.state = {
+                    info : 'this is info'
+                }
+            }
+            changeValue(e){
+                this.setState({
+                    info:'hahahah'
+                });
+            }
+            render(){
+                return (
+                    <p>
+                        <span>{this.state.info}</span>
+                        <br/>
+                        <button onClick={this.changeValue.bind(this)}>changeValue</button>
+                        {/*
+                            <button onClick={this.setState({info:'hehehe'})}>changeValue22</button>
+                        */}
+                    </p>
+                )
+            }
+        }
+        const element = (
+            <div>
+                <ComA></ComA>
+            </div>
+        )
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>
+```
+
+**模拟实现  数据的双向绑定**
+
+
 
