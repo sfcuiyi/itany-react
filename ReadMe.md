@@ -1201,6 +1201,15 @@ import Other from "../other/Other";
 class Links extends Component{
 
     render(){
+         // this.props
+        //    location
+        //    history
+        //    match
+        //        isExact
+        //        url  当前路由的路径,真实的请求路径
+        //        path Route组件上path的值
+        //        params 路由参数对象
+        console.log(this.props)
         return (
             <div>
                 {
@@ -1233,3 +1242,34 @@ export default Links;
 
 
 ```
+
+### 5、路由参数
+
+**React中路由参数是REST风格参数（参数在URL上）**
+
+
+
+```jsx
+<Route path="/blogdetail/:id" component={BlogDetail}></Route>
+
+<Link to={`/blogdetail/${value.id}`}>{value.title}</Link>
+
+render(){
+    console.log(this.props.match.params.id)
+    return (
+        <h1>this is BlogDetail Page.....id : {this.props.match.params.id}</h1>
+    );
+}
+
+```
+
+## 十、Ajax
+
+**React 并没有提供网络数据请求的任何方式（包括其模块）**
+
+
+
+```
+npm install jquery --save
+```
+

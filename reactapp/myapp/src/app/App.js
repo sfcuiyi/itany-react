@@ -6,6 +6,8 @@ import './App.css';
 import AboutMe from './components/aboutme/AboutMe';
 import BlogList from './components/bloglist/BlogList';
 import Links from './components/links/Links';
+import BlogDetail from "./components/blogdetail/BlogDetail";
+import AjaxComponent from "./components/ajax/AjaxComponent";
 
 
 class App extends Component {
@@ -24,6 +26,9 @@ class App extends Component {
                   <li>
                       <Link to="/aboutme">关于</Link>
                   </li>
+                  <li>
+                      <Link to="/ajax">ajax</Link>
+                  </li>
                 </ul>
               </div>
 
@@ -31,6 +36,8 @@ class App extends Component {
               <Route exact path="/" component={BlogList}></Route>
               <Route path="/links" component={Links}></Route>
               <Route path="/aboutme" component={AboutMe}></Route>
+              <Route path="/blogdetail/:id" component={BlogDetail}></Route>
+              <Route path="/ajax" component={AjaxComponent}></Route>
             </div>
         </div>
       </BrowserRouter>

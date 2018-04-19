@@ -11,9 +11,9 @@ class Links extends Component{
         //    history
         //    match
         //        isExact
-        //        url  当前路由的路径
-        //        path
-        //        params
+        //        url  当前路由的路径,真实的请求路径
+        //        path Route组件上path的值
+        //        params 路由参数对象
         console.log(this.props)
         return (
             <div>
