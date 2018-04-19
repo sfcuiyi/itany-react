@@ -605,6 +605,26 @@ sudo npm install react-dom
 </html>
 ```
 
+### 5-4  **props 的只读性**
+
+**Cannot assign to read only property 'abc' of object '#<Object>'**
+
+
+
+**组件参数是只读的，参数值不能被修改**
+
+
+
+```jsx
+ render(){
+     console.log(this.props.abc)
+     this.props.abc = "234";
+     return (
+         <p>asdasd</p>
+     )
+ }
+```
+
 
 
 ## 六、React 中事件的绑定
@@ -931,5 +951,242 @@ abcdef
 
 **模拟实现  数据的双向绑定**
 
+```jsx
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/react.development.js"></script>
+    <script src="./js/react-dom.development.js"></script>
+    <script src="./js/babel.min.js"></script>
+</head>
+<body>
+    
+    <div id="d"></div>
 
+
+    <script type="text/babel">
+        
+        // 使用ES6 的class 定义组件
+        class ComA extends React.Component {
+            
+            constructor(props){
+                super(props);
+                // 初始化state
+                // 该属性和普通属性的使用方式是一致的
+                this.state = {
+                    info : ''
+                }
+            }
+            changeValue(e){
+                this.setState({
+                    info:e.target.value
+                });
+            }
+            render(){
+                return (
+                    <p>
+                        <span>{this.state.info}</span>
+                        <br/>
+                        <input onChange={this.changeValue.bind(this)}/>
+                    </p>
+                )
+            }
+        }
+        const element = (
+            <div>
+                <ComA></ComA>
+            </div>
+        )
+        ReactDOM.render(
+            element,
+            document.getElementById('d')
+        );
+
+    </script>
+</body>
+</html>
+```
+
+## 八、React 的模块化开发
+
+### 1、React 项目的搭建
+
+#### 8-1 安装React 脚手架
+
+```shell
+sudo npm install -g create-react-app
+```
+
+#### 8-2 创建React项目
+
+```shell
+create-react-app 项目名
+```
+
+#### 8-3 初始化项目(8-2 自动完成)
+
+```shell
+# 在项目根目录下
+cd 项目名
+npm install
+```
+
+#### 8-4 启动
+
+```shell
+npm start
+```
+
+#### 8-5 访问
+
+`http://localhost:3000/`
+
+
+
+### 2、React 项目结构
+
+```
+app
+|----node_modules
+|----public  用于存放对外公开的资源和配置信息
+	|----favicon.ico 浏览器标签图标
+	|----index.html  首页，主体页 配置在manifest.json中
+	|----manifest.json 配置信息
+|----src
+	|----app.js    项目的根组件
+	|----app.css
+	|----index.js	应用程序入口，以及React的渲染方式
+	|----index.css
+	|----logo.svg
+	|----registerServiceWorker.js 测试服务器
+|----package.json
+```
+
+### 3、文件配置
+
+index.html
+
+```html
+<!-- 
+	%PUBLIC_URL%
+		%xx% 取值的语法
+		在使用 `npm run build` 构建应用程序的时候，可以指定PUBLIC_URL的值
+		PUBLIC_URL=/XXXX npm run build
+	简单来说，PUBLIC_URL可以理解为一个变量，在build的时候，为其指定值，确保在任何情况下，资源能够正常的访问到
+-->
+<link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+```
+
+manifest.json
+
+```json
+{
+  "display": "standalone",// 告诉移动设备，该应用程序是一个独立运行的应用程序
+}
+```
+
+App.js
+
+```javascript
+// 必须存在，加载的是React 的核心组件(即:react.development.js文件) 和 组件模块
+import React, { Component } from 'react';
+// 引入图标文件，logo 可以直接在JSX中引用  {logo}
+import logo from './logo.svg';
+// 样式文件会影响下面的JSX元素
+import './App.css';
+```
+
+### 4、重构React项目结构
+
+**以下内容，为本人原创内容**
+
+```
+App
+|---node_modules
+|---public 资源文件夹
+|---src
+	|---app
+		|---components
+			|---ComA
+				|---ComA.js
+				|---ComA.css
+			|---ComB
+		|---App.js
+		|---App.css
+	|---index.js
+	|---index.css
+	|---registerServiceWorker.js
+|---package.json
+
+```
+
+## 九、路由
+
+React 本身不提供路由功能，路由是以组件的形式存在。
+
+### 1、安装路由组件
+
+```
+npm install react-router --save
+npm install react-router-dom -S
+```
+
+### 2、路由组件
+
+| 组件名称                                  | 作用                                            |
+| ----------------------------------------- | ----------------------------------------------- |
+| &lt;BrowserRouter>内容&lt;/BrowserRouter> | 用于描述内容区具有路由功能                      |
+| &lt;Route />                              | 用于为组件提供存放区域（一个组件对应一个Route） |
+| &lt;Link />                               | 用于Route间的切换（即：组件间的切换）           |
+
+### 3、使用方式
+
+```jsx
+import React, { Component } from 'react';
+import { BrowserRouter,Route,Link } from "react-router-dom";
+import logo from '../logo.svg';
+import './App.css';
+
+import AboutMe from './components/aboutme/AboutMe';
+import BlogList from './components/bloglist/BlogList';
+import Links from './components/links/Links';
+
+
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="container">
+              <div className="row">
+                <ul className="nav nav-pills">
+                  <li className="active">
+                      <Link to="/">博客列表</Link>
+                  </li>
+                  <li>
+                      <Link to="/links">链接</Link>
+                    </li>
+                  <li>
+                      <Link to="/aboutme">关于</Link>
+                  </li>
+                </ul>
+              </div>
+
+            <div className="row">
+              <Route exact path="/" component={BlogList}></Route>
+              <Route path="/links" component={Links}></Route>
+              <Route path="/aboutme" component={AboutMe}></Route>
+            </div>
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+
+```
 
